@@ -21,6 +21,7 @@ const setFocus = (el) => setTimeout(() => el.focus());
 
 export const routeData = () =>
   createServerData$(db.getTodos, { initialValue: [] });
+  db.getTodos
 
 const TodoApp = () => {
   const todos = useRouteData<typeof routeData>();

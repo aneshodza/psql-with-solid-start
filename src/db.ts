@@ -1,5 +1,13 @@
 // TODO: This is terribly broken with HMR. Should use real persistent storage.
 import { Todo } from "~/types";
+import postgres from "postgres";
+
+const sql= postgres({
+  host: "localhost",
+  port: 5432,
+  database: "psql_with_solid_start",
+  username: "anes"
+});
 
 let COUNTER = 0;
 let TODOS: Todo[] = [];
@@ -10,33 +18,41 @@ function delay<T>(fn: () => T) {
 }
 
 export default {
-  getTodos() {
-    return delay(() => TODOS);
+  getTodos():any {
+    return (sql`SELECT * FROM todos`);
+    // return delay(() => TODOS);
   },
   addTodo(title: string) {
-    return delay(() => TODOS.push({ id: COUNTER++, title, completed: false }));
+    return sql`INSERT INTO todos (title, completed) VALUES (${title}, false)`;
+    // return delay(() => TODOS.push({ id: COUNTER++, title, completed: false }));
   },
   removeTodo(id: number) {
-    return delay(() => (TODOS = TODOS.filter((todo) => todo.id !== id)));
+    return sql`DELETE FROM todos WHERE id = (${id})`;
+    // return delay(() => (TODOS = TODOS.filter((todo) => todo.id !== id)));
   },
   toggleTodo(id: number) {
-    return delay(() =>
-      TODOS.forEach(
-        (todo) => todo.id === id && (todo.completed = !todo.completed)
-      )
-    );
+    return sql`UPDATE todos SET completed = NOT completed WHERE id = (${id})`;
+    // return delay(() =>
+
+    //   TODOS.forEach(
+    //     (todo) => todo.id === id && (todo.completed = !todo.completed)
+    //   )
+    // );
   },
   editTodo(id: number, title: string) {
-    return delay(() =>
-      TODOS.forEach((todo) => {
-        if (todo.id === id) todo.title = title;
-      })
-    );
+    return sql`UPDATE todos SET title = (${title}) WHERE id = (${id})`;
+    // return delay(() =>
+    //   TODOS.forEach((todo) => {
+    //     if (todo.id === id) todo.title = title;
+    //   })
+    // );
   },
   clearCompleted() {
-    return delay(() => (TODOS = TODOS.filter((todo) => !todo.completed)));
+    return sql`DELETE FROM todos WHERE completed = true`;
+    // return delay(() => (TODOS = TODOS.filter((todo) => !todo.completed)));
   },
   toggleAll(completed: boolean) {
-    return delay(() => TODOS.forEach((todo) => (todo.completed = !completed)));
+    return sql`UPDATE todos SET completed = (${completed})`;
+    // return delay(() => TODOS.forEach((todo) => (todo.completed = !completed)));
   },
 };

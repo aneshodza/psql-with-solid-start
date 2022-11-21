@@ -2199,6 +2199,11 @@ postcss@^8.4.18:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+postgres@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/postgres/-/postgres-3.3.2.tgz#91f2e209e4a08ca7101eb7178734e4c0e4d23eb3"
+  integrity sha512-NaPqFpUC6C7aCQkJXLvuO/3RKNKL4en8opY53YrcXK3//xXra6CZ2qX6290lxuQ1dW1LbRGYCmsawRlCxSBonQ==
+
 pretty-bytes@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-6.0.0.tgz#928be2ad1f51a2e336add8ba764739f9776a8140"

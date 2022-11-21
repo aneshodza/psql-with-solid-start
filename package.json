@@ -19,5 +19,8 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "dependencies": {
+    "postgres": "^3.3.2"
   }
 }
